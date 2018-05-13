@@ -1,0 +1,14 @@
+<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th>Tipo</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let recipe of recipeList">
+    <td>{{recipe.name}}</td>
+    <td>{{recipe.category}}</td>
+  </tr>
+  </tbody>
+</table>

@@ -1,0 +1,19 @@
+<div class="container">
+  <h2>Ingredientes:</h2>
+  <table class="table table-hover table-striped w-85">
+    <thead class="thead-light">
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Calories (per 100gr)</th>
+      <th scope="col">Vegetarian Friendly?</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let ingredient of ingredientList">
+      <td>{{ingredient.name}}</td>
+      <td>{{ingredient.caloriesPer100Gr}}</td>
+      <td>{{ingredient.vegetarianFriendly}}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>

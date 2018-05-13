@@ -1,18 +1,37 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
+import { routing, appRoutingProviders } from './app.routing';
 
 import { AppComponent } from './app.component';
+import { AddRecipeComponent } from './components/add-recipe/add-recipe.component';
+import { RecipesComponent } from './components/recipes/recipes.component';
+import { HomeComponent } from './components/home/home.component';
+import { ErrorComponent } from './components/error/error.component';
+import { MenuComponent } from './components/menu/menu.component';
+import { IngredientsComponent } from './components/ingredients/ingredients.component';
 
+import { HttpClientModule } from '@angular/common/http';
+import {ThermomixApiServiceService} from './services/thermomix-api-service.service';
+import {DataTablesModule} from 'angular-datatables';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    AddRecipeComponent,
+    RecipesComponent,
+    HomeComponent,
+    MenuComponent,
+    ErrorComponent,
+    IngredientsComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    routing,
+    HttpClientModule,
+    DataTablesModule
   ],
-  providers: [],
+  providers: [appRoutingProviders, ThermomixApiServiceService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
