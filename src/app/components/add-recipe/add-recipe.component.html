@@ -1,3 +1,60 @@
-<p>
-  add-recipe works!
-</p>
+<div class="container w-75">
+  <form>
+    <div class="form-group">
+      <label for="recipe-name">Nombre</label>
+      <input type="text" class="form-control" id="recipe-name" aria-describedby="nameHelp" placeholder="Enter recipe name">
+      <small id="nameHelp" class="form-text text-muted">Recipe name.</small>
+    </div>
+    <div class="form-group">
+      <label for="recipe-name">Categoria</label>
+      <input type="text" class="form-control" id="recipe-category" aria-describedby="categoryHelp" placeholder="Enter recipe category">
+      <small id="categoryHelp" class="form-text text-muted">Recipe category.</small>
+    </div>
+
+
+    <div class="add-step d-none">
+      <div class="form-group">
+        <label for="step-action">Acción</label>
+        <input type="text" class="form-control" id="step-action" aria-describedby="actionHelp" placeholder="Enter step action">
+        <small id="actionHelp" class="form-text text-muted">Step action.</small>
+      </div>
+      <div class="form-group">
+        <label for="step-temperature">Temperatura</label>
+        <input type="number" class="form-control" id="step-temperature" aria-describedby="temperatureHelp" placeholder="Enter step temperature">
+        <small id="temperatureHelp" class="form-text text-muted">Step temperature.</small>
+      </div>
+      <div class="form-group">
+        <label for="step-speed">Velocidad</label>
+        <input type="number" class="form-control" id="step-speed" aria-describedby="speedHelp" placeholder="Enter step speed">
+        <small id="speedHelp" class="form-text text-muted">Step speed.</small>
+      </div>
+      <div class="row">
+        <div class="col">
+          <label for="step-time">Tiempo</label>
+          <input type="number" class="form-control" id="step-time" aria-describedby="timeHelp" placeholder="Enter step time">
+          <small id="timeHelp" class="form-text text-muted">Step time.</small>
+        </div>
+        <div class="col">
+          <label for="step-time-unit">Time unit</label>
+          <select class="form-control" id="step-time-unit" aria-describedby="timeUnitHelp">
+            <option>Seconds</option>
+            <option>Minutes</option>
+          </select>
+          <small id="timeUnitHelp" class="form-text text-muted">Step unit time.</small>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="step-speed">Descripcion</label>
+        <textarea class="form-control" id="descriptionTextarea" rows="3" aria-describedby="descriptionHelp"></textarea>
+        <small id="descriptionHelp" class="form-text text-muted">Step description.</small>
+      </div>
+      <div class="form-check">
+        <input type="checkbox" class="form-check-input" id="sinThermomixCheck">
+        <label class="form-check-label" for="sinThermomixCheck">Sin thermomix</label>
+      </div>
+      <button type="submit" class="btn btn-primary">Añadir paso</button>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Añadir receta</button>
+  </form>
+</div>
