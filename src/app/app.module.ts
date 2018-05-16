@@ -14,6 +14,8 @@ import { IngredientsComponent } from './components/ingredients/ingredients.compo
 import { HttpClientModule } from '@angular/common/http';
 import {ThermomixApiServiceService} from './services/thermomix-api-service.service';
 import {DataTablesModule} from 'angular-datatables';
+import {DragulaModule, DragulaService} from 'ng2-dragula';
+import {FormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -29,9 +31,11 @@ import {DataTablesModule} from 'angular-datatables';
     BrowserModule,
     routing,
     HttpClientModule,
-    DataTablesModule
+    DataTablesModule,
+    DragulaModule,
+    FormsModule
   ],
-  providers: [appRoutingProviders, ThermomixApiServiceService],
+  providers: [appRoutingProviders, ThermomixApiServiceService, DragulaService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

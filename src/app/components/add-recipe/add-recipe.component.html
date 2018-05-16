@@ -1,60 +1,90 @@
 <div class="container w-75">
-  <form>
-    <div class="form-group">
-      <label for="recipe-name">Nombre</label>
-      <input type="text" class="form-control" id="recipe-name" aria-describedby="nameHelp" placeholder="Enter recipe name">
-      <small id="nameHelp" class="form-text text-muted">Recipe name.</small>
-    </div>
-    <div class="form-group">
-      <label for="recipe-name">Categoria</label>
-      <input type="text" class="form-control" id="recipe-category" aria-describedby="categoryHelp" placeholder="Enter recipe category">
-      <small id="categoryHelp" class="form-text text-muted">Recipe category.</small>
+  <form #formAddRecipe="ngForm" (ngSubmit)="onSubmit()">
+    <div class="row">
+      <div class="form-group float-left col-9">
+        <label for="recipe-name">Nombre</label>
+        <input type="text" [(ngModel)]="recipe.name" class="form-control" id="recipe-name" aria-describedby="nameHelp" placeholder="Enter recipe name" #name="ngModel" name="name">
+        <small id="nameHelp" class="form-text text-muted">Recipe name.</small>
+      </div>
+      <div class="form-group float-left col-3">
+        <label for="recipe-category">Categoria</label>
+        <input type="text" [(ngModel)]="recipe.category" class="form-control" id="recipe-category" aria-describedby="categoryHelp" placeholder="Enter recipe category" #category="ngModel" name="category">
+        <small id="categoryHelp" class="form-text text-muted">Recipe category.</small>
+      </div>
     </div>
 
+    <!--<div class="add-step d-none">-->
+    <div class="clearfix">
+      <div class="add-step float-right w-75">
+        <div class="row w-100">
+          <div class="form-group float-left col-md">
+            <label for="step-action">Acción</label>
+            <input [(ngModel)]="recipeStep.action" #action="ngModel" name="action" type="text" class="form-control" id="step-action" aria-describedby="actionHelp" placeholder="Enter step action">
+            <small id="actionHelp" class="form-text text-muted">Step action.</small>
+          </div>
+          <div class="form-group float-left col-md">
+            <label for="step-temperature">Temperatura</label>
+            <input [(ngModel)]="recipeStep.temperature" #temperature="ngModel" name="temperature" type="number" class="form-control" id="step-temperature" aria-describedby="temperatureHelp" placeholder="Enter step temperature">
+            <small id="temperatureHelp" class="form-text text-muted">Step temperature.</small>
+          </div>
+          <div class="form-group float-left col-md">
+            <label for="step-speed">Velocidad</label>
+            <input [(ngModel)]="recipeStep.speed" #speed="ngModel" name="speed" type="number" class="form-control" id="step-speed" aria-describedby="speedHelp" placeholder="Enter step speed">
+            <small id="speedHelp" class="form-text text-muted">Step speed.</small>
+          </div>
+          <!--<div class="row">-->
+          <div class="float-left col-md">
+            <label for="step-time">Tiempo</label>
+            <input [(ngModel)]="recipeStep.time" #time="ngModel" name="time" type="number" class="form-control" id="step-time" aria-describedby="timeHelp" placeholder="Enter step time">
+            <small id="timeHelp" class="form-text text-muted">Step time.</small>
+          </div>
+          <div class="float-left col-md">
+            <label for="step-time-unit">Time unit</label>
+            <select [(ngModel)]="recipeStep.timeUnit" #timeUnit="ngModel" name="timeUnit" class="form-control" id="step-time-unit" aria-describedby="timeUnitHelp">
+              <option>Seconds</option>
+              <option>Minutes</option>
+            </select>
+            <small id="timeUnitHelp" class="form-text text-muted">Step unit time.</small>
+          </div>
+        </div>
+        <!--</div>-->
+        <div class="row">
+          <div class="form-group float-left col-md">
+            <label for="descriptionTextarea">Descripcion</label>
+            <textarea [(ngModel)]="recipeStep.description" #description="ngModel" name="description" class="form-control" id="descriptionTextarea" rows="3" aria-describedby="descriptionHelp"></textarea>
+            <small id="descriptionHelp" class="form-text text-muted">Step description.</small>
+          </div>
+        </div>
+        <div class="form-check pb-4">
+          <input [(ngModel)]="recipeStep.usesThermomix" #usesThermomix="ngModel" name="usesThermomix" type="checkbox" class="form-check-input" id="sinThermomixCheck">
+          <label class="form-check-label" for="sinThermomixCheck">Sin thermomix</label>
+        </div>
+        <button (click)="onClick()" type="button" class="btn btn-primary">Añadir paso</button>
+      </div>
+      <!--<div>-->
+        <!--<div class='wrapper'>-->
+          <!--<div class='container' [dragula]='"first-bag"'>-->
+            <!--<div>You can move these elements between these two containers</div>-->
+            <!--<div>Moving them anywhere else isn't quite possible</div>-->
+            <!--<div>There's also the possibility of moving elements around in the same container, changing their position</div>-->
+          <!--</div>-->
+          <!--<div class='container' [dragula]='"first-bag"'>-->
+            <!--<div>This is the default use case. You only need to specify the containers you want to use</div>-->
+            <!--<div>More interactive use cases lie ahead</div>-->
+            <!--<div>Make sure to check out the <a href='https://github.com/bevacqua/dragula#readme'>documentation on GitHub!</a></div>-->
+          <!--</div>-->
+        <!--</div>-->
+      <!--</div>-->
 
-    <div class="add-step d-none">
-      <div class="form-group">
-        <label for="step-action">Acción</label>
-        <input type="text" class="form-control" id="step-action" aria-describedby="actionHelp" placeholder="Enter step action">
-        <small id="actionHelp" class="form-text text-muted">Step action.</small>
+      <div class='wrapper float-left w-25'>
+        <h4>Pasos:</h4>
+        <ul class="list-group container" [dragula]='"evented-bag"' [dragulaModel]='recipe.steps'>
+          <li class="list-group-item" *ngFor="let step of recipe.steps">{{step.description}}</li>
+        </ul>
       </div>
-      <div class="form-group">
-        <label for="step-temperature">Temperatura</label>
-        <input type="number" class="form-control" id="step-temperature" aria-describedby="temperatureHelp" placeholder="Enter step temperature">
-        <small id="temperatureHelp" class="form-text text-muted">Step temperature.</small>
-      </div>
-      <div class="form-group">
-        <label for="step-speed">Velocidad</label>
-        <input type="number" class="form-control" id="step-speed" aria-describedby="speedHelp" placeholder="Enter step speed">
-        <small id="speedHelp" class="form-text text-muted">Step speed.</small>
-      </div>
-      <div class="row">
-        <div class="col">
-          <label for="step-time">Tiempo</label>
-          <input type="number" class="form-control" id="step-time" aria-describedby="timeHelp" placeholder="Enter step time">
-          <small id="timeHelp" class="form-text text-muted">Step time.</small>
-        </div>
-        <div class="col">
-          <label for="step-time-unit">Time unit</label>
-          <select class="form-control" id="step-time-unit" aria-describedby="timeUnitHelp">
-            <option>Seconds</option>
-            <option>Minutes</option>
-          </select>
-          <small id="timeUnitHelp" class="form-text text-muted">Step unit time.</small>
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="step-speed">Descripcion</label>
-        <textarea class="form-control" id="descriptionTextarea" rows="3" aria-describedby="descriptionHelp"></textarea>
-        <small id="descriptionHelp" class="form-text text-muted">Step description.</small>
-      </div>
-      <div class="form-check">
-        <input type="checkbox" class="form-check-input" id="sinThermomixCheck">
-        <label class="form-check-label" for="sinThermomixCheck">Sin thermomix</label>
-      </div>
-      <button type="submit" class="btn btn-primary">Añadir paso</button>
     </div>
 
     <button type="submit" class="btn btn-primary">Añadir receta</button>
+
   </form>
 </div>
