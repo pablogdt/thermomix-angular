@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 // import { Http, Response, Headers } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 
 @Injectable()
 export class ThermomixApiServiceService {
@@ -21,6 +21,12 @@ export class ThermomixApiServiceService {
   public getRecipes(): Observable<Object> {
     const url = this.apiUrl + '/recipe/findAll';
     return this.httpClient.get(url);
+  }
+
+  public createNewRecipe(body: any): Observable<any> {
+    const url = this.apiUrl + '/recipe/add';
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+    return this.httpClient.post(url, body, {headers: headers});
   }
 
 }

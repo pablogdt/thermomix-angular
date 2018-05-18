@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import {Recipe} from '../../model/recipe.model';
 import {RecipeStep} from '../../model/recipeStep.model';
 import {DragulaService} from 'ng2-dragula';
+import {RecipeIngredient} from '../../model/recipeIngredient.model';
+import {ThermomixApiServiceService} from '../../services/thermomix-api-service.service';
+import {Ingredient} from '../../model/ingredient.model';
 
 @Component({
   selector: 'app-add-recipe',
@@ -12,13 +15,10 @@ export class AddRecipeComponent implements OnInit {
   public recipe: Recipe;
   public recipeStep: RecipeStep;
 
-  constructor( private dragulaService: DragulaService ) {
-    this.recipeStep = new RecipeStep(null, null, 'ADD', 15, 'Minutes', 2, 50, 'Naïve description', true);
-    this.recipe = new Recipe('Pisto de bonito', 'FISH', []);
-    // this.recipe.steps = [];
-    this.recipe.steps.push(new RecipeStep(null, null, null, null, null, null, null, 'Cortar ingredientes', null));
-    this.recipe.steps.push(new RecipeStep(null, null, null, null, null, null, null, 'Cocinar ingredientes', null));
-    this.recipe.steps.push(new RecipeStep(null, null, null, null, null, null, null, 'Emplatar', null));
+  constructor( private dragulaService: DragulaService, private thermomixApi: ThermomixApiServiceService) {
+    this.recipe = new Recipe(null, null, []);
+    this.recipeStep = new RecipeStep(null, null, null, null, null, null, null, null, null);
+    this.recipeStep.recipeIngredientsToAdd = [];
 
     dragulaService.drop.subscribe((value) => {
       console.log('drop: ${value[0]}');
@@ -27,20 +27,37 @@ export class AddRecipeComponent implements OnInit {
   }
 
   private onDrop(args) {
-    // let [e, el] = args;
-    // alert(args);
   }
 
   ngOnInit() {
   }
 
-  onClick() {
+  onClickStep() {
     this.recipe.steps.push(this.recipeStep);
     this.recipeStep = new RecipeStep(null, null, null, null, null, null, null, null, false);
   }
 
   onSubmit() {
+    this.recipe.steps.forEach((step, index) => {
+      step.stepOrder = index + 1;
+    });
     console.log(JSON.stringify(this.recipe));
+    this.thermomixApi.createNewRecipe(this.recipe).subscribe(
+      (val) => {
+        console.log('POST call successful value returned in body', val);
+      },
+      response => {
+        console.log('POST call in error', response);
+      },
+      () => {
+        console.log('The POST observable is now completed.');
+      });
   }
 
+  onClickAddIngredient() {
+    this.recipeStep.recipeIngredientsToAdd.push(new RecipeIngredient(null, null, new Ingredient(null, null, null)));
+  }
+
+  onClickDeleteIngredient() {
+  }
 }

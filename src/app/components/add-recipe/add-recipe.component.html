@@ -1,4 +1,4 @@
-<div class="container w-75">
+<div class="container w-75 pt-4">
   <form #formAddRecipe="ngForm" (ngSubmit)="onSubmit()">
     <div class="row">
       <div class="form-group float-left col-9">
@@ -32,22 +32,62 @@
             <input [(ngModel)]="recipeStep.speed" #speed="ngModel" name="speed" type="number" class="form-control" id="step-speed" aria-describedby="speedHelp" placeholder="Enter step speed">
             <small id="speedHelp" class="form-text text-muted">Step speed.</small>
           </div>
-          <!--<div class="row">-->
           <div class="float-left col-md">
             <label for="step-time">Tiempo</label>
             <input [(ngModel)]="recipeStep.time" #time="ngModel" name="time" type="number" class="form-control" id="step-time" aria-describedby="timeHelp" placeholder="Enter step time">
             <small id="timeHelp" class="form-text text-muted">Step time.</small>
           </div>
-          <div class="float-left col-md">
+          <div class="float-left col-md-6">
             <label for="step-time-unit">Time unit</label>
             <select [(ngModel)]="recipeStep.timeUnit" #timeUnit="ngModel" name="timeUnit" class="form-control" id="step-time-unit" aria-describedby="timeUnitHelp">
-              <option>Seconds</option>
-              <option>Minutes</option>
+              <option value="SECONDS">Seconds</option>
+              <option value="MINUTES">Minutes</option>
             </select>
             <small id="timeUnitHelp" class="form-text text-muted">Step unit time.</small>
           </div>
         </div>
-        <!--</div>-->
+        <div class="row w-100">
+          <div class="form-group float-left col-md">
+            <h6>Ingredientes a añadir:</h6>
+            <ul class="list-group container" [dragula]='"evented-bag"' [dragulaModel]='recipeStep.recipeIngredientsToAdd'>
+              <li class="list-group-item" *ngFor="let ingredient of recipeStep.recipeIngredientsToAdd"><strong>{{ingredient.amount}} {{ingredient.amountType}}</strong> de <strong>{{ingredient.ingredient.name}}</strong></li>
+            </ul>
+          </div>
+          <div class="float-left col-md-1 align-self-center">
+            <button (click)="onClickAddIngredient()" type="button" class="btn btn-primary">+</button>
+          </div>
+        </div>
+        <div class="row w-100" *ngFor="let ingredientToAdd of recipeStep.recipeIngredientsToAdd; let i = index">
+          <div class="float-left col-md-2">
+            <label for="ingredient-amount-{{i}}">Cantidad</label>
+            <input [(ngModel)]="ingredientToAdd.amount" #time="ngModel" name="amount-{{i}}" type="number" class="form-control" id="ingredient-amount-{{i}}" aria-describedby="ingredientAmountHelp" placeholder="Enter ingredient amount">
+            <small id="ingredientAmountHelp-{{i}}" class="form-text text-muted">Ingredient amount.</small>
+          </div>
+          <div class="float-left col-md-2">
+            <label for="amount-type-{{i}}">Medida</label>
+            <select [(ngModel)]="ingredientToAdd.amountType" #timeUnit="ngModel" name="amountType-{{i}}" class="form-control" id="amount-type-{{i}}" aria-describedby="amountTypeHelp">
+              <option value="GRAMES">Gramos</option>
+              <option value="PINCH">Pizca</option>
+              <option value="SPOON">Cucharada</option>
+              <option value="TEASPOON">Cucharada pequeña</option>
+              <option value="MILLILITERS">Mililitros</option>
+            </select>
+            <small id="amountTypeHelp" class="form-text text-muted">Ingredient amount type.</small>
+          </div>
+          <div class="form-group float-left col-md-4">
+            <label for="ingredient-{{i}}">Ingrediente</label>
+            <input [(ngModel)]="ingredientToAdd.ingredient.name" #action="ngModel" name="action-{{i}}" type="text" class="form-control" id="ingredient-{{i}}" aria-describedby="ingredientHelp" placeholder="Enter ingredient">
+            <small id="ingredientHelp-{{i}}" class="form-text text-muted">Ingredient.</small>
+          </div>
+          <div class="float-left col-md-3">
+            <label for="ingredient-calories-{{i}}">Calorias (por 100 gr)</label>
+            <input [(ngModel)]="ingredientToAdd.ingredient.caloriesPer100Gr" #time="ngModel" name="calories-{{i}}" type="number" class="form-control" id="ingredient-calories-{{i}}" aria-describedby="ingredientCaloriesHelp" placeholder="Enter ingredient calories">
+            <small id="ingredientCaloriesHelp" class="form-text text-muted">Ingredient calories.</small>
+          </div>
+          <div class="float-left col-md-1 align-self-center">
+            <button (click)="onClickDeleteIngredient()" type="button" class="btn btn-primary">-</button>
+          </div>
+        </div>
         <div class="row">
           <div class="form-group float-left col-md">
             <label for="descriptionTextarea">Descripcion</label>
@@ -59,22 +99,8 @@
           <input [(ngModel)]="recipeStep.usesThermomix" #usesThermomix="ngModel" name="usesThermomix" type="checkbox" class="form-check-input" id="sinThermomixCheck">
           <label class="form-check-label" for="sinThermomixCheck">Sin thermomix</label>
         </div>
-        <button (click)="onClick()" type="button" class="btn btn-primary">Añadir paso</button>
+        <button (click)="onClickStep()" type="button" class="btn btn-primary">Añadir paso</button>
       </div>
-      <!--<div>-->
-        <!--<div class='wrapper'>-->
-          <!--<div class='container' [dragula]='"first-bag"'>-->
-            <!--<div>You can move these elements between these two containers</div>-->
-            <!--<div>Moving them anywhere else isn't quite possible</div>-->
-            <!--<div>There's also the possibility of moving elements around in the same container, changing their position</div>-->
-          <!--</div>-->
-          <!--<div class='container' [dragula]='"first-bag"'>-->
-            <!--<div>This is the default use case. You only need to specify the containers you want to use</div>-->
-            <!--<div>More interactive use cases lie ahead</div>-->
-            <!--<div>Make sure to check out the <a href='https://github.com/bevacqua/dragula#readme'>documentation on GitHub!</a></div>-->
-          <!--</div>-->
-        <!--</div>-->
-      <!--</div>-->
 
       <div class='wrapper float-left w-25'>
         <h4>Pasos:</h4>
