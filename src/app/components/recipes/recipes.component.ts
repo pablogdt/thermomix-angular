@@ -6,7 +6,7 @@ import { Subject } from 'rxjs/Subject';
 
 @Component({
   selector: 'app-recipes',
-  templateUrl: './recipes3.component.html',
+  templateUrl: './recipes.component.html',
   styleUrls: ['./recipes.component.css']
 })
 export class RecipesComponent implements OnInit {
