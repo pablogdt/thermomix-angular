@@ -17,6 +17,7 @@ import {DataTablesModule} from 'angular-datatables';
 import {DragulaModule, DragulaService} from 'ng2-dragula';
 import {FormsModule} from '@angular/forms';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
+import { ViewRecipeComponent } from './components/view-recipe/view-recipe.component';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { AngularFontAwesomeModule } from 'angular-font-awesome';
     HomeComponent,
     MenuComponent,
     ErrorComponent,
-    IngredientsComponent
+    IngredientsComponent,
+    ViewRecipeComponent
   ],
   imports: [
     BrowserModule,
