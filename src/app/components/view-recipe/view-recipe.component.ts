@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute, Params} from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { ThermomixApiServiceService } from '../../services/thermomix-api-service.service';
+import { Recipe } from '../../model/recipe.model';
 
 @Component({
   selector: 'app-view-recipe',
@@ -7,14 +9,22 @@ import { Router, ActivatedRoute, Params} from '@angular/router';
   styleUrls: ['./view-recipe.component.css']
 })
 export class ViewRecipeComponent implements OnInit {
-  private recipeId: string;
+  private recipeId: number;
+  public recipe: Recipe;
 
-  constructor(private route: ActivatedRoute, private router: Router) { }
+  constructor(private route: ActivatedRoute, private router: Router, private thermomixApi: ThermomixApiServiceService) { }
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
-      this.recipeId = params.get('id');
+      this.recipeId = Number(params.get('id'));
     });
+    this.thermomixApi.getRecipe(this.recipeId).subscribe(
+      (val) => {
+        this.recipe = <Recipe>val;
+      },
+      response => {
+        console.log('Error getting ', response);
+      });
   }
 
 }

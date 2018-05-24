@@ -28,6 +28,11 @@ export class ThermomixApiServiceService {
     return this.httpClient.post(url, null);
   }
 
+  public getRecipe(id: number): Observable<Object> {
+    const url = this.apiUrl + '/recipe/find/' + id;
+    return this.httpClient.get(url);
+  }
+
   public createNewRecipe(body: any): Observable<any> {
     const url = this.apiUrl + '/recipe/add';
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
