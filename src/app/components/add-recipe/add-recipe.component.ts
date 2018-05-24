@@ -18,10 +18,10 @@ export class AddRecipeComponent implements OnInit {
   constructor( private dragulaService: DragulaService, private thermomixApi: ThermomixApiServiceService) {
     this.recipe = new Recipe(null, null, []);
     this.recipeStep = new RecipeStep(null, null, null, null, null, null, null, null, null);
+    this.recipe.steps.push(this.recipeStep);
     this.recipeStep.recipeIngredientsToAdd = [];
 
     dragulaService.drop.subscribe((value) => {
-      console.log('drop: ${value[0]}');
       this.onDrop(value.slice(1));
     });
   }
@@ -32,9 +32,9 @@ export class AddRecipeComponent implements OnInit {
   ngOnInit() {
   }
 
-  onClickStep() {
-    this.recipe.steps.push(this.recipeStep);
+  onClickAddStep() {
     this.recipeStep = new RecipeStep(null, null, null, null, null, null, null, null, false);
+    this.recipe.steps.push(this.recipeStep);
   }
 
   onSubmit() {
@@ -59,5 +59,9 @@ export class AddRecipeComponent implements OnInit {
   }
 
   onClickDeleteIngredient() {
+  }
+
+  onClickStepSelected($event, item) {
+    this.recipeStep = item;
   }
 }

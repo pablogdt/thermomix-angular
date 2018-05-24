@@ -13,7 +13,6 @@
       </div>
     </div>
 
-    <!--<div class="add-step d-none">-->
     <div class="clearfix">
       <div class="add-step float-right w-75">
         <div class="row w-100">
@@ -50,7 +49,7 @@
           <div class="form-group float-left col-md">
             <h6>Ingredientes a añadir:</h6>
             <ul class="list-group container" [dragula]='"evented-bag"' [dragulaModel]='recipeStep.recipeIngredientsToAdd'>
-              <li class="list-group-item" *ngFor="let ingredient of recipeStep.recipeIngredientsToAdd"><strong>{{ingredient.amount}} {{ingredient.amountType}}</strong> de <strong>{{ingredient.ingredient.name}}</strong></li>
+              <li class="list-group-item" *ngFor="let ingredient of recipeStep.recipeIngredientsToAdd"><strong>{{ ingredient.amount }} {{ ingredient.amountType }}</strong> de <strong>{{ ingredient.ingredient.name }}</strong></li>
             </ul>
           </div>
           <div class="float-left col-md-1 align-self-center">
@@ -99,14 +98,18 @@
           <input [(ngModel)]="recipeStep.usesThermomix" #usesThermomix="ngModel" name="usesThermomix" type="checkbox" class="form-check-input" id="sinThermomixCheck">
           <label class="form-check-label" for="sinThermomixCheck">Sin thermomix</label>
         </div>
-        <button (click)="onClickStep()" type="button" class="btn btn-primary">Añadir paso</button>
+        <button (click)="onClickAddStep()" type="button" class="btn btn-primary">Añadir paso</button>
       </div>
 
       <div class='wrapper float-left w-25'>
         <h4>Pasos:</h4>
-        <ul class="list-group container" [dragula]='"evented-bag"' [dragulaModel]='recipe.steps'>
-          <li class="list-group-item" *ngFor="let step of recipe.steps">{{step.description}}</li>
-        </ul>
+        <div class="list-group container" [dragula]='"evented-bag"' [dragulaModel]='recipe.steps'>
+          <a class="list-group-item list-group-item-action" id="list-home-list" data-toggle="list" *ngFor="let step of recipe.steps" (click)="onClickStepSelected($event, step)">
+            <div *ngIf="step.description!=null;then content else other_content"></div>
+            <ng-template #content>{{ step.description }}</ng-template>
+            <ng-template #other_content>Nuevo paso</ng-template>
+          </a>
+        </div>
       </div>
     </div>
 
