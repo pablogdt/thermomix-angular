@@ -44,4 +44,29 @@ export class RecipesComponent implements OnInit {
     );
   }
 
+  removeRecipe($event, recipe: Recipe) {
+    this.thermomixApi.removeRecipe(recipe.id).subscribe(
+      (val) => {
+          const index = this.recipeList.indexOf(recipe, 0);
+          if (index > -1) {
+            this.recipeList.splice(index, 1);
+          }
+        },
+        response => {
+          console.log('Error deleting', response);
+          alert('Error deleting recipe ' + recipe.name);
+        },
+        () => {
+          console.log('Recipe removed fine');
+    });
+  }
+
+  editRecipe($event, recipe) {
+    console.log('Editing recipe...');
+  }
+
+  viewRecipe($event, recipe) {
+    console.log('Viewing recipe...');
+  }
+
 }

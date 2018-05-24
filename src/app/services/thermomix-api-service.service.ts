@@ -23,6 +23,11 @@ export class ThermomixApiServiceService {
     return this.httpClient.get(url);
   }
 
+  public removeRecipe(id: number): Observable<Object> {
+    const url = this.apiUrl + '/recipe/remove/' + id;
+    return this.httpClient.post(url, null);
+  }
+
   public createNewRecipe(body: any): Observable<any> {
     const url = this.apiUrl + '/recipe/add';
     const headers = new HttpHeaders().set('Content-Type', 'application/json');

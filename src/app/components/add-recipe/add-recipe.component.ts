@@ -16,7 +16,7 @@ export class AddRecipeComponent implements OnInit {
   public recipeStep: RecipeStep;
 
   constructor( private dragulaService: DragulaService, private thermomixApi: ThermomixApiServiceService) {
-    this.recipe = new Recipe(null, null, []);
+    this.recipe = new Recipe(null, null, null, []);
     this.recipeStep = this.createDefaultStep();
     this.recipe.steps.push(this.recipeStep);
     this.recipeStep.recipeIngredientsToAdd = [];
