@@ -23,7 +23,15 @@ export class RecipesComponent implements OnInit {
   ngOnInit() {
     this.dtOptions = {
       pagingType: 'full_numbers',
-      pageLength: 20
+      pageLength: 20,
+      columns: [{
+        title: 'Nombre'
+      }, {
+        title: 'Tipo'
+      }, {
+        title: '',
+        orderable: false
+      }]
     };
     this.thermomixApi.getRecipes().subscribe(
       data => {

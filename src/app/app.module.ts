@@ -16,6 +16,8 @@ import {ThermomixApiServiceService} from './services/thermomix-api-service.servi
 import {DataTablesModule} from 'angular-datatables';
 import {DragulaModule, DragulaService} from 'ng2-dragula';
 import {FormsModule} from '@angular/forms';
+import { AngularFontAwesomeModule } from 'angular-font-awesome';
+
 
 @NgModule({
   declarations: [
@@ -33,7 +35,8 @@ import {FormsModule} from '@angular/forms';
     HttpClientModule,
     DataTablesModule,
     DragulaModule,
-    FormsModule
+    FormsModule,
+    AngularFontAwesomeModule
   ],
   providers: [appRoutingProviders, ThermomixApiServiceService, DragulaService],
   bootstrap: [AppComponent]
