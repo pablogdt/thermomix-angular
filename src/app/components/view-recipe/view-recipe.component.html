@@ -1,1 +1,19 @@
-{{ recipe.name }}
+<h1>{{ recipe?.name }}</h1>
+<h2>Preparación</h2>
+<div *ngFor="let step of recipe?.steps; let i = index" class="preparation-step my-2">
+  Paso {{i + 1}}
+  <p>Necesitaremos:</p>
+  <ul>
+    <li *ngFor="let ingredient of step.recipeIngredientsToAdd">{{ingredient.amount}} {{ingredient.amountType}} de {{ingredient.ingredient.name}}</li>
+  </ul>
+
+  <div *ngIf="step.usesThermomix; then thermomixStep else noThermomixStep"></div>
+  <ng-template #thermomixStep>
+    Usamos el modo {{step.action}} durante {{step.time}} {{step.timeUnit}} {{ step.speed ? 'a velocidad ' + step.speed : '' }} {{ step.temperature ? 'a temperatura ' + step.temperature : '' }}
+  </ng-template>
+
+  <ng-template #noThermomixStep>
+    {{step.description}}
+  </ng-template>
+
+</div>
