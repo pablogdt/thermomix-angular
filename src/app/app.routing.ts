@@ -13,7 +13,7 @@ const app_routes = [
   { path: 'home', component: HomeComponent },
   { path: 'recipes', component: RecipesComponent },
   { path: 'recipe/:id', component: ViewRecipeComponent },
-  { path: 'add-recipe', component: AddRecipeComponent },
+  { path: 'add-recipe/:id', component: AddRecipeComponent },
   { path: 'ingredients', component: IngredientsComponent },
   { path: '**', component: ErrorComponent }
 ];

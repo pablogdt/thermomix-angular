@@ -5,6 +5,7 @@ import {DragulaService} from 'ng2-dragula';
 import {RecipeIngredient} from '../../model/recipeIngredient.model';
 import {ThermomixApiServiceService} from '../../services/thermomix-api-service.service';
 import {Ingredient} from '../../model/ingredient.model';
+import {ActivatedRoute, Router, Params} from '@angular/router';
 
 @Component({
   selector: 'app-add-recipe',
@@ -14,8 +15,10 @@ import {Ingredient} from '../../model/ingredient.model';
 export class AddRecipeComponent implements OnInit {
   public recipe: Recipe;
   public recipeStep: RecipeStep;
+  private parameterRecipeId: number;
 
-  constructor( private dragulaService: DragulaService, private thermomixApi: ThermomixApiServiceService) {
+  constructor(private route: ActivatedRoute, private router: Router,  private dragulaService: DragulaService,
+              private thermomixApi: ThermomixApiServiceService) {
     this.recipe = new Recipe(null, null, null, []);
     this.recipeStep = this.createDefaultStep();
     this.recipe.steps.push(this.recipeStep);
@@ -24,6 +27,18 @@ export class AddRecipeComponent implements OnInit {
     dragulaService.drop.subscribe((value) => {
       this.onDrop(value.slice(1));
     });
+    this.route.paramMap.subscribe(params => {
+      this.parameterRecipeId = Number(params.get('id'));
+    });
+    if (this.parameterRecipeId) {
+      this.thermomixApi.getRecipe(this.parameterRecipeId).subscribe(
+        (val) => {
+          this.recipe = <Recipe>val;
+        },
+        response => {
+          console.log('Error getting ', response);
+        });
+    }
   }
 
   private onDrop(args) {
