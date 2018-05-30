@@ -53,7 +53,7 @@ export class AddRecipeComponent implements OnInit {
   }
 
   private createDefaultStep() {
-    return new RecipeStep(null, null, null, null, 'SECONDS', null, null, null, false);
+    return new RecipeStep(null, null, null, null, 'SECONDS', null, null, null, true);
   }
 
   onSubmit() {
