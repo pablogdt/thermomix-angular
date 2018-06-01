@@ -15,7 +15,7 @@ import {ActivatedRoute, Router, Params} from '@angular/router';
 export class AddRecipeComponent implements OnInit {
   public recipe: Recipe;
   public recipeStep: RecipeStep;
-  private parameterRecipeId: number;
+  public parameterRecipeId: number;
 
   constructor(private route: ActivatedRoute, private router: Router,  private dragulaService: DragulaService,
               private thermomixApi: ThermomixApiServiceService) {
@@ -53,15 +53,18 @@ export class AddRecipeComponent implements OnInit {
   }
 
   private createDefaultStep() {
-    return new RecipeStep(null, null, null, null, 'SECONDS', null, null, null, true);
+    const step = new RecipeStep(null, null, null, null, 'SECONDS', null, null, null, true);
+    step.recipeIngredientsToAdd = [];
+    return step;
   }
 
-  onSubmit() {
+  onSubmitRecipe() {
     this.recipe.steps.forEach((step, index) => {
       step.stepOrder = index + 1;
     });
     console.log(JSON.stringify(this.recipe));
-    this.thermomixApi.createNewRecipe(this.recipe).subscribe(
+    if (this.parameterRecipeId) {
+      this.thermomixApi.updateRecipe(this.recipe, this.parameterRecipeId).subscribe(
       (val) => {
         console.log('POST call successful value returned in body', val);
       },
@@ -71,6 +74,18 @@ export class AddRecipeComponent implements OnInit {
       () => {
         console.log('The POST observable is now completed.');
       });
+    } else {
+      this.thermomixApi.createNewRecipe(this.recipe).subscribe(
+        (val) => {
+          console.log('POST call successful value returned in body', val);
+        },
+        response => {
+          console.log('POST call in error', response);
+        },
+        () => {
+          console.log('The POST observable is now completed.');
+        });
+    }
   }
 
   onClickAddIngredient() {

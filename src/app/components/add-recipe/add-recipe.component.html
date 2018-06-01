@@ -1,5 +1,5 @@
 <div class="container w-75 pt-4">
-  <form #formAddRecipe="ngForm" (ngSubmit)="onSubmit()" class="needs-validation">
+  <form #formAddRecipe="ngForm" (ngSubmit)="onSubmitRecipe()" class="needs-validation">
     <div class="row">
       <div class="form-group float-left col-9 required">
         <label for="recipe-name">Nombre</label>
@@ -113,7 +113,9 @@
       </div>
     </div>
 
-    <button type="submit" class="btn btn-primary">Añadir receta</button>
+    <div *ngIf="parameterRecipeId;then updateRecipeButton else addRecipeButton"></div>
+    <ng-template #addRecipeButton><button type="submit" class="btn btn-primary">Añadir receta</button></ng-template>
+    <ng-template #updateRecipeButton><button type="submit" class="btn btn-primary">Modificar receta</button></ng-template>
 
   </form>
 </div>

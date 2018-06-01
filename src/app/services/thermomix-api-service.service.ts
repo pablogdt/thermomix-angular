@@ -39,4 +39,10 @@ export class ThermomixApiServiceService {
     return this.httpClient.post(url, body, {headers: headers});
   }
 
+  updateRecipe(body: any, recipeId: number): Observable<any> {
+    const url = this.apiUrl + '/recipe/update/' + recipeId;
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+    return this.httpClient.post(url, body, {headers: headers});
+  }
+
 }
