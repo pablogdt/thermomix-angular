@@ -92,7 +92,11 @@ export class AddRecipeComponent implements OnInit {
     this.recipeStep.recipeIngredientsToAdd.push(new RecipeIngredient(null, null, new Ingredient(null, null, null)));
   }
 
-  onClickDeleteIngredient() {
+  onClickDeleteIngredient($event, ingredient) {
+    const index = this.recipeStep.recipeIngredientsToAdd.indexOf(ingredient, 0);
+    if (index > -1) {
+      this.recipeStep.recipeIngredientsToAdd.splice(index, 1);
+    }
   }
 
   onClickStepSelected($event, item) {

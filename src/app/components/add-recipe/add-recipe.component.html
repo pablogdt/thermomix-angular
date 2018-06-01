@@ -70,6 +70,7 @@
               <option value="SPOON">Cucharada</option>
               <option value="TEASPOON">Cucharada pequeña</option>
               <option value="MILLILITERS">Mililitros</option>
+              <option value="PACKET">Paquete</option>
             </select>
             <small id="amountTypeHelp" class="form-text text-muted">Ingredient amount type.</small>
           </div>
@@ -84,7 +85,7 @@
             <small id="ingredientCaloriesHelp" class="form-text text-muted">Ingredient calories.</small>
           </div>
           <div class="float-left col-md-1 align-self-center">
-            <button (click)="onClickDeleteIngredient()" type="button" class="btn btn-primary">-</button>
+            <button (click)="onClickDeleteIngredient($event, ingredientToAdd)" type="button" class="btn btn-primary">-</button>
           </div>
         </div>
         <div class="row">
