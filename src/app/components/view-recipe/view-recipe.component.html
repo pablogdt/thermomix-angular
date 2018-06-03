@@ -1,4 +1,9 @@
 <h1>{{ recipe?.name }}</h1>
+<h2>Ingredientes</h2>
+<ul>
+  <li *ngFor="let recipeIngredient of ingredientAmounts">{{ recipeIngredient.amount }} {{ recipeIngredient.amountType }} de {{ recipeIngredient.ingredient.name }}</li>
+</ul>
+
 <h2>Preparación</h2>
 <div *ngFor="let step of recipe?.steps; let i = index" class="preparation-step my-2">
   Paso {{i + 1}}
