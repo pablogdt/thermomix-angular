@@ -33,6 +33,21 @@ export class ThermomixApiServiceService {
     return this.httpClient.get(url);
   }
 
+  public getAmountTypes(): Observable<Object> {
+    const url = this.apiUrl + '/static/amounts';
+    return this.httpClient.get(url);
+  }
+
+  public getCategoriesTypes(): Observable<Object> {
+    const url = this.apiUrl + '/static/categories';
+    return this.httpClient.get(url);
+  }
+
+  public getActionsTypes(): Observable<Object> {
+    const url = this.apiUrl + '/static/actions';
+    return this.httpClient.get(url);
+  }
+
   public createNewRecipe(body: any): Observable<any> {
     const url = this.apiUrl + '/recipe/add';
     const headers = new HttpHeaders().set('Content-Type', 'application/json');

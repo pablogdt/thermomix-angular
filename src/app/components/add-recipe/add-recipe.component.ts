@@ -6,6 +6,7 @@ import {RecipeIngredient} from '../../model/recipeIngredient.model';
 import {ThermomixApiServiceService} from '../../services/thermomix-api-service.service';
 import {Ingredient} from '../../model/ingredient.model';
 import {ActivatedRoute, Router, Params} from '@angular/router';
+import {SelectorEntry} from '../../model/selectorEntry.model';
 
 @Component({
   selector: 'app-add-recipe',
@@ -16,9 +17,15 @@ export class AddRecipeComponent implements OnInit {
   public recipe: Recipe;
   public recipeStep: RecipeStep;
   public parameterRecipeId: number;
+  public amountTypes: Array<SelectorEntry>;
+  public categories: Array<SelectorEntry>;
+  public actions: Array<SelectorEntry>;
 
   constructor(private route: ActivatedRoute, private router: Router,  private dragulaService: DragulaService,
               private thermomixApi: ThermomixApiServiceService) {
+    this.amountTypes = [];
+    this.categories = [];
+    this.actions = [];
     this.recipe = new Recipe(null, null, null, []);
     this.recipeStep = this.createDefaultStep();
     this.recipe.steps.push(this.recipeStep);
@@ -39,6 +46,33 @@ export class AddRecipeComponent implements OnInit {
           console.log('Error getting ', response);
         });
     }
+
+    // Select fields population
+    this.thermomixApi.getAmountTypes().subscribe(
+      (val) => {
+        Object.entries(val).forEach(entry => this.amountTypes.push(new SelectorEntry(entry[1], entry[0])));
+        console.log(val);
+      },
+      response => {
+        console.log('Error getting amounts ', response);
+      });
+    this.thermomixApi.getCategoriesTypes().subscribe(
+      (val) => {
+        Object.entries(val).forEach(entry => this.categories.push(new SelectorEntry(entry[1], entry[0])));
+        console.log(val);
+      },
+      response => {
+        console.log('Error getting categories ', response);
+      });
+    this.thermomixApi.getActionsTypes().subscribe(
+      (val) => {
+        this.actions.push(new SelectorEntry("", ""));
+        Object.entries(val).forEach(entry => this.actions.push(new SelectorEntry(entry[1], entry[0])));
+        console.log(val);
+      },
+      response => {
+        console.log('Error getting actions ', response);
+      });
   }
 
   private onDrop(args) {
