@@ -69,15 +69,6 @@
           </div>
           <div class="float-left col-md-2">
             <label for="amount-type-{{i}}">Medida</label>
-            <!--<select [(ngModel)]="ingredientToAdd.amountType" #timeUnit="ngModel" name="amountType-{{i}}" class="form-control" id="amount-type-{{i}}" aria-describedby="amountTypeHelp">-->
-              <!--<option value="GRAMES">Gramos</option>-->
-              <!--<option value="PINCH">Pizca</option>-->
-              <!--<option value="SPOON">Cucharada</option>-->
-              <!--<option value="TEASPOON">Cucharada pequeña</option>-->
-              <!--<option value="MILLILITERS">Mililitros</option>-->
-              <!--<option value="PACKET">Paquete</option>-->
-            <!--</select>-->
-
             <select [(ngModel)]="ingredientToAdd.amountType" #timeUnit="ngModel" name="amountType-{{i}}" class="form-control" id="amount-type-{{i}}" aria-describedby="amountTypeHelp">
               <option *ngFor="let amountType of amountTypes" value="{{amountType.value}}">{{amountType.description}}</option>
             </select>
