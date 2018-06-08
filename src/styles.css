@@ -3,3 +3,8 @@
   content:"*";
   color:red;
 }
+
+#warning-mark {
+  color: red;
+  font-size: 0.7em;
+}

@@ -5,6 +5,9 @@ export class Recipe {
       public id: number,
       public name: string,
       public category: string,
-      public steps: Array<RecipeStep>
+      public steps: Array<RecipeStep>,
+      public calories: number,
+      public warnings: Array<string>,
+      public vegetarian: boolean
   ) {}
 }

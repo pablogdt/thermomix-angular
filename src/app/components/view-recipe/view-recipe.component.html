@@ -1,4 +1,6 @@
-<h1>{{ recipe?.name }}</h1>
+<h1>{{ recipe?.name }} <i class="fas fa-leaf" *ngIf="recipe?.vegetarian"></i></h1>
+<h2>Calorias: {{recipe?.calories}} Kcal <i data-toggle="tooltip" title="Hay ingredientes que no se han tenido en cuenta para el calculo" class="fas fa-exclamation" id="warning-mark" *ngIf="recipe?.warnings.length > 0"></i></h2>
+
 <div id="ingredients" class="float-sm-left mx-5">
   <h2>Ingredientes</h2>
   <ul>

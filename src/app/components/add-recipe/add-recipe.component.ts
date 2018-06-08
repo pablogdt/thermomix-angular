@@ -26,7 +26,7 @@ export class AddRecipeComponent implements OnInit {
     this.amountTypes = [];
     this.categories = [];
     this.actions = [];
-    this.recipe = new Recipe(null, null, null, []);
+    this.recipe = new Recipe(null, null, null, [], null, [], null);
     this.recipeStep = this.createDefaultStep();
     this.recipe.steps.push(this.recipeStep);
     this.recipeStep.recipeIngredientsToAdd = [];
@@ -66,7 +66,7 @@ export class AddRecipeComponent implements OnInit {
       });
     this.thermomixApi.getActionsTypes().subscribe(
       (val) => {
-        this.actions.push(new SelectorEntry("", ""));
+        this.actions.push(new SelectorEntry('', ''));
         Object.entries(val).forEach(entry => this.actions.push(new SelectorEntry(entry[1], entry[0])));
         console.log(val);
       },
