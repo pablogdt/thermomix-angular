@@ -18,6 +18,9 @@ import {DragulaModule, DragulaService} from 'ng2-dragula';
 import {FormsModule} from '@angular/forms';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { ViewRecipeComponent } from './components/view-recipe/view-recipe.component';
+import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToasterService } from './services/toastr.service';
 
 
 @NgModule({
@@ -38,9 +41,11 @@ import { ViewRecipeComponent } from './components/view-recipe/view-recipe.compon
     DataTablesModule,
     DragulaModule,
     FormsModule,
-    AngularFontAwesomeModule
+    AngularFontAwesomeModule,
+    BrowserAnimationsModule, // required animations module
+    ToastrModule.forRoot()
   ],
-  providers: [appRoutingProviders, ThermomixApiServiceService, DragulaService],
+  providers: [appRoutingProviders, ThermomixApiServiceService, DragulaService, ToasterService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

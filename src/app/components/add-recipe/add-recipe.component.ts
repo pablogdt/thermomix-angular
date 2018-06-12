@@ -7,6 +7,7 @@ import {ThermomixApiServiceService} from '../../services/thermomix-api-service.s
 import {Ingredient} from '../../model/ingredient.model';
 import {ActivatedRoute, Router, Params} from '@angular/router';
 import {SelectorEntry} from '../../model/selectorEntry.model';
+import {ToasterService} from "../../services/toastr.service";
 
 @Component({
   selector: 'app-add-recipe',
@@ -22,7 +23,7 @@ export class AddRecipeComponent implements OnInit {
   public actions: Array<SelectorEntry>;
 
   constructor(private route: ActivatedRoute, private router: Router,  private dragulaService: DragulaService,
-              private thermomixApi: ThermomixApiServiceService) {
+              private thermomixApi: ThermomixApiServiceService, private toasterService: ToasterService) {
     this.amountTypes = [];
     this.categories = [];
     this.actions = [];
@@ -104,9 +105,11 @@ export class AddRecipeComponent implements OnInit {
       },
       response => {
         console.log('POST call in error', response);
+        this.toasterService.showError('Receta "' + this.recipe.name + '" no se ha modificado correctamente', 'Error');
       },
       () => {
-        console.log('The POST observable is now completed.');
+        this.router.navigate(['/recipes']);
+        this.toasterService.showSuccess('Receta "' + this.recipe.name + '" modificada correctamente', 'Modificado');
       });
     } else {
       this.thermomixApi.createNewRecipe(this.recipe).subscribe(
@@ -115,9 +118,11 @@ export class AddRecipeComponent implements OnInit {
         },
         response => {
           console.log('POST call in error', response);
+          this.toasterService.showError('Receta "' + this.recipe.name + '" no se ha creado', 'Error');
         },
         () => {
-          console.log('The POST observable is now completed.');
+          this.router.navigate(['/recipes']);
+          this.toasterService.showSuccess('Receta "' + this.recipe.name + '" creada correctamente', 'Creado');
         });
     }
   }
