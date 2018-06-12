@@ -7,7 +7,7 @@ import {ThermomixApiServiceService} from '../../services/thermomix-api-service.s
 import {Ingredient} from '../../model/ingredient.model';
 import {ActivatedRoute, Router, Params} from '@angular/router';
 import {SelectorEntry} from '../../model/selectorEntry.model';
-import {ToasterService} from "../../services/toastr.service";
+import {ToasterService} from '../../services/toastr.service';
 
 @Component({
   selector: 'app-add-recipe',
