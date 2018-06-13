@@ -1,7 +1,7 @@
 <div class="container w-75 pt-4">
   <form #formAddRecipe="ngForm" (ngSubmit)="onSubmitRecipe()" class="needs-validation">
     <div class="row">
-      <div class="form-group float-left col-9 required">
+      <div class="form-group float-left col-5 required">
         <label for="recipe-name">Nombre</label>
         <input type="text" [(ngModel)]="recipe.name" class="form-control" id="recipe-name" aria-describedby="nameHelp" placeholder="Salsa de tomate" #name="ngModel" name="name">
         <small id="nameHelp" class="form-text text-muted">Recipe name.</small>
@@ -12,6 +12,18 @@
           <option *ngFor="let category of categories" value="{{category.value}}">{{category.description}}</option>
         </select>
         <small id="categoryHelp" class="form-text text-muted">Recipe category.</small>
+      </div>
+      <div class="form-group float-left col-2 required">
+        <label for="recipe-category">Thermomix model</label>
+        <select [(ngModel)]="recipe.thermomixModel" #timeUnit="ngModel" name="thermomixModel" class="form-control" id="thermomix-model" aria-describedby="thermomixModelHelp">
+          <option *ngFor="let thermomixModel of thermomixModels" value="{{thermomixModel.value}}">{{thermomixModel.description}}</option>
+        </select>
+        <small id="thermomixModelHelp" class="form-text text-muted">Thermomix model.</small>
+      </div>
+      <div class="form-group float-left col-2 required">
+        <label for="recipe-category">Raciones</label>
+        <input type="text" [(ngModel)]="recipe.servings" class="form-control" id="recipe-servings" aria-describedby="servingsHelp" placeholder="4" #name="ngModel" name="servings">
+        <small id="servingsHelp" class="form-text text-muted">Recipe servings.</small>
       </div>
     </div>
 

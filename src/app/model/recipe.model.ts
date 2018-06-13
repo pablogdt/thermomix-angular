@@ -8,6 +8,8 @@ export class Recipe {
       public steps: Array<RecipeStep>,
       public calories: number,
       public warnings: Array<string>,
-      public vegetarian: boolean
+      public vegetarian: boolean,
+      public servings: number,
+      public thermomixModel: string
   ) {}
 }

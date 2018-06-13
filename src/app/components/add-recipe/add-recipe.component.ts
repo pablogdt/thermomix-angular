@@ -21,13 +21,15 @@ export class AddRecipeComponent implements OnInit {
   public amountTypes: Array<SelectorEntry>;
   public categories: Array<SelectorEntry>;
   public actions: Array<SelectorEntry>;
+  public thermomixModels: Array<SelectorEntry>;
 
   constructor(private route: ActivatedRoute, private router: Router,  private dragulaService: DragulaService,
               private thermomixApi: ThermomixApiServiceService, private toasterService: ToasterService) {
     this.amountTypes = [];
     this.categories = [];
     this.actions = [];
-    this.recipe = new Recipe(null, null, null, [], null, [], null);
+    this.thermomixModels = [];
+    this.recipe = new Recipe(null, null, null, [], null, [], null, null, null);
     this.recipeStep = this.createDefaultStep();
     this.recipe.steps.push(this.recipeStep);
     this.recipeStep.recipeIngredientsToAdd = [];
@@ -69,6 +71,14 @@ export class AddRecipeComponent implements OnInit {
       (val) => {
         this.actions.push(new SelectorEntry('', ''));
         Object.entries(val).forEach(entry => this.actions.push(new SelectorEntry(entry[1], entry[0])));
+        console.log(val);
+      },
+      response => {
+        console.log('Error getting actions ', response);
+      });
+    this.thermomixApi.getThermomixModels().subscribe(
+      (val) => {
+        Object.entries(val).forEach(entry => this.thermomixModels.push(new SelectorEntry(entry[1], entry[0])));
         console.log(val);
       },
       response => {
@@ -128,7 +138,7 @@ export class AddRecipeComponent implements OnInit {
   }
 
   onClickAddIngredient() {
-    this.recipeStep.recipeIngredientsToAdd.push(new RecipeIngredient(null, null, new Ingredient(null, null, null)));
+    this.recipeStep.recipeIngredientsToAdd.push(new RecipeIngredient(null, null, new Ingredient(null, null, null, null)));
   }
 
   onClickDeleteIngredient($event, ingredient) {

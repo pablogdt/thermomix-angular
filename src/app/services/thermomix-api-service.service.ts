@@ -53,6 +53,11 @@ export class ThermomixApiServiceService {
     return this.httpClient.get(url);
   }
 
+  public getThermomixModels(): Observable<Object> {
+    const url = this.apiUrl + '/static/thermomix-models';
+    return this.httpClient.get(url);
+  }
+
   public createNewRecipe(body: any): Observable<any> {
     const url = this.apiUrl + '/recipe/add';
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
