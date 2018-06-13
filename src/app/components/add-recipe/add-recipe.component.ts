@@ -132,7 +132,7 @@ export class AddRecipeComponent implements OnInit {
   }
 
   onClickDeleteIngredient($event, ingredient) {
-    if (window.confirm('¿Seguro que quieres borrar esta ingrediente?')) {
+    if (window.confirm('¿Seguro que quieres borrar este ingrediente?')) {
       const index = this.recipeStep.recipeIngredientsToAdd.indexOf(ingredient, 0);
       if (index > -1) {
         this.recipeStep.recipeIngredientsToAdd.splice(index, 1);
@@ -142,5 +142,14 @@ export class AddRecipeComponent implements OnInit {
 
   onClickStepSelected($event, item) {
     this.recipeStep = item;
+  }
+
+  onClickRemoveStep($event, step) {
+    if (window.confirm('¿Seguro que quieres borrar este paso?')) {
+      const index = this.recipe.steps.indexOf(step, 0);
+      if (index > -1) {
+        this.recipe.steps.splice(index, 1);
+      }
+    }
   }
 }
