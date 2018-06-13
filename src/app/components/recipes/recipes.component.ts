@@ -33,6 +33,8 @@ export class RecipesComponent implements OnInit {
       }, {
         title: 'Tipo'
       }, {
+        title: 'Kcal *'
+      }, {
         title: '',
         orderable: false
       }]
