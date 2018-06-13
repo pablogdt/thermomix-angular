@@ -4,6 +4,7 @@ import { Recipe } from '../../model/recipe.model';
 import { ThermomixApiServiceService } from '../../services/thermomix-api-service.service';
 import { Subject } from 'rxjs/Subject';
 import { ToasterService } from '../../services/toastr.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-recipes',
@@ -16,8 +17,10 @@ export class RecipesComponent implements OnInit {
   // We use this trigger because fetching the list of persons can be quite long,
   // thus we ensure the data is fetched before rendering
   dtTrigger: Subject<any> = new Subject();
+  public parameterIngredientName: string;
 
-  constructor(public thermomixApi: ThermomixApiServiceService, private toasterService: ToasterService) {
+  constructor(private route: ActivatedRoute, private router: Router, public thermomixApi: ThermomixApiServiceService,
+              private toasterService: ToasterService) {
     this.recipeList = [];
   }
 
@@ -34,15 +37,30 @@ export class RecipesComponent implements OnInit {
         orderable: false
       }]
     };
-    this.thermomixApi.getRecipes().subscribe(
-      data => {
-        (<Array<Object>>data).forEach(recipe => {
-          this.recipeList.push(<Recipe>recipe);
-        });
-        this.dtTrigger.next();
-      },
-      err => console.log('Error retrieving recipes')
-    );
+    this.route.paramMap.subscribe(params => {
+      this.parameterIngredientName = params.get('name');
+    });
+    if (!this.parameterIngredientName) {
+      this.thermomixApi.getRecipes().subscribe(
+        data => {
+          (<Array<Object>>data).forEach(recipe => {
+            this.recipeList.push(<Recipe>recipe);
+          });
+          this.dtTrigger.next();
+        },
+        err => console.log('Error retrieving recipes')
+      );
+    } else {
+      this.thermomixApi.getIngredientRecipes(this.parameterIngredientName).subscribe(
+        data => {
+          (<Array<Object>>data).forEach(recipe => {
+            this.recipeList.push(<Recipe>recipe);
+          });
+          this.dtTrigger.next();
+        },
+        err => console.log('Error retrieving recipes')
+      );
+    }
   }
 
   removeRecipe($event, recipe: Recipe) {

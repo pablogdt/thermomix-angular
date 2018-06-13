@@ -23,6 +23,11 @@ export class ThermomixApiServiceService {
     return this.httpClient.get(url);
   }
 
+  public getIngredientRecipes(ingredientName: string): Observable<Object> {
+    const url = this.apiUrl + '/recipe/find/ingredient/' + ingredientName;
+    return this.httpClient.get(url);
+  }
+
   public removeRecipe(id: number): Observable<Object> {
     const url = this.apiUrl + '/recipe/remove/' + id;
     return this.httpClient.post(url, null);

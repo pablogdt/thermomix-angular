@@ -10,7 +10,7 @@
     </thead>
     <tbody>
     <tr *ngFor="let ingredient of ingredientList">
-      <td>{{ingredient.name}}</td>
+      <td>{{ingredient.name}} <a [routerLink]="['/recipes', ingredient.name]"><i class="fas fa-search"></i></a></td>
       <td>{{ingredient.caloriesPer100Gr}}</td>
       <td>{{ingredient.vegetarianFriendly}}</td>
     </tr>

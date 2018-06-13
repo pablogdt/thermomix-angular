@@ -12,6 +12,7 @@ const app_routes = [
   { path: '', component: HomeComponent },
   { path: 'home', component: HomeComponent },
   { path: 'recipes', component: RecipesComponent },
+  { path: 'recipes/:name', component: RecipesComponent },
   { path: 'recipe/:id', component: ViewRecipeComponent },
   { path: 'add-recipe', component: AddRecipeComponent },
   { path: 'add-recipe/:id', component: AddRecipeComponent },
